@@ -37,7 +37,7 @@ if [[ $(id -u) == 0 ]] && [[ "$1" = 'atlantis' ]]; then
     # we drop to the non-root user. Note that this doesn't work with all
     # storage drivers (it won't work with AUFS).
     if [ ! -z ${ATLANTIS_ALLOW_PRIVILEGED_PORTS+x} ]; then
-        setcap "cap_net_bind_service=+ep" /bin/atlantis
+        setcap "cap_net_bind_service=+ep" /usr/local/bin/atlantis
     fi
 
     set -- gosu atlantis "$@"
