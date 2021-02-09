@@ -3,8 +3,8 @@ module github.com/runatlantis/atlantis
 go 1.14
 
 require (
-	github.com/Laisky/graphql v1.0.4
-	github.com/Masterminds/sprig/v3 v3.1.0
+	github.com/Laisky/graphql v1.0.5
+	github.com/Masterminds/sprig/v3 v3.2.0
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20190424111038-f61b66f89f4a // indirect
 	github.com/aws/aws-sdk-go v1.17.14 // indirect
@@ -13,7 +13,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/docker/docker v0.0.0-20180620051407-e2593239d949
-	github.com/elazarl/go-bindata-assetfs v1.0.0
+	github.com/elazarl/go-bindata-assetfs v1.0.1
 	github.com/flynn-archive/go-shlex v0.0.0-20150515145356-3f9db97f8568
 	github.com/go-ozzo/ozzo-validation v0.0.0-20170913164239-85dcd8368eba
 	github.com/go-playground/locales v0.12.1 // indirect
@@ -22,21 +22,23 @@ require (
 	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/google/go-github/v31 v31.0.0
 	github.com/gorilla/mux v1.8.0
-	github.com/hashicorp/go-getter v1.5.1
-	github.com/hashicorp/go-version v1.2.0
+	github.com/hashicorp/go-getter v1.5.2
+	github.com/hashicorp/go-version v1.2.1
 	github.com/hashicorp/hcl/v2 v2.6.0 // indirect
 	github.com/hashicorp/terraform-config-inspect v0.0.0-20200806211835-c481b8bfa41e
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
-	github.com/mcdafydd/go-azuredevops v0.11.2
+	github.com/lusis/go-slackbot v0.0.0-20180109053408-401027ccfef5 // indirect
+	github.com/lusis/slack-test v0.0.0-20190426140909-c40012f20018 // indirect
+	github.com/mcdafydd/go-azuredevops v0.12.0
 	github.com/microcosm-cc/bluemonday v1.0.1
 	github.com/mitchellh/colorstring v0.0.0-20150917214807-8631ce90f286
 	github.com/mitchellh/go-homedir v1.0.0
 	github.com/mohae/deepcopy v0.0.0-20170603005431-491d3605edfb
-	github.com/nlopes/slack v0.1.0
+	github.com/nlopes/slack v0.4.0
 	github.com/onsi/ginkgo v1.9.0 // indirect
 	github.com/onsi/gomega v1.4.3 // indirect
-	github.com/petergtz/pegomock v2.8.0+incompatible
+	github.com/petergtz/pegomock v2.9.0+incompatible
 	github.com/pkg/errors v0.9.1
 	github.com/remeh/sizedwaitgroup v1.0.0
 	github.com/shurcooL/githubv4 v0.0.0-20191127044304-8f68eb5628d0
