@@ -1,5 +1,5 @@
 //
-// Copyright 2018, Patrick Webster
+// Copyright 2021, Patrick Webster
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -144,7 +144,7 @@ type UpdateGroupIssueBoardOptions struct {
 	Name        *string `url:"name,omitempty" json:"name,omitempty"`
 	AssigneeID  *int    `url:"assignee_id,omitempty" json:"assignee_id,omitempty"`
 	MilestoneID *int    `url:"milestone_id,omitempty" json:"milestone_id,omitempty"`
-	Labels      *Labels `url:"labels,omitempty" json:"labels,omitempty"`
+	Labels      Labels  `url:"labels,omitempty" json:"labels,omitempty"`
 	Weight      *int    `url:"weight,omitempty" json:"weight,omitempty"`
 }
 

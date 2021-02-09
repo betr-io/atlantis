@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2021, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -117,12 +117,37 @@ func (s *ProjectMembersService) GetProjectMember(pid interface{}, user int, opti
 	return pm, resp, err
 }
 
+// GetInheritedProjectMember gets a project team member, including inherited
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/members.html#get-a-member-of-a-group-or-project-including-inherited-members
+func (s *ProjectMembersService) GetInheritedProjectMember(pid interface{}, user int, options ...RequestOptionFunc) (*ProjectMember, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/members/all/%d", pathEscape(project), user)
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	pm := new(ProjectMember)
+	resp, err := s.client.Do(req, pm)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return pm, resp, err
+}
+
 // AddProjectMemberOptions represents the available AddProjectMember() options.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/members.html#add-a-member-to-a-group-or-project
 type AddProjectMemberOptions struct {
-	UserID      *int              `url:"user_id,omitempty" json:"user_id,omitempty"`
+	UserID      interface{}       `url:"user_id,omitempty" json:"user_id,omitempty"`
 	AccessLevel *AccessLevelValue `url:"access_level,omitempty" json:"access_level,omitempty"`
 	ExpiresAt   *string           `url:"expires_at,omitempty" json:"expires_at"`
 }

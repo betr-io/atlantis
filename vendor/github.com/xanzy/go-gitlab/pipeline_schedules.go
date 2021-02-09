@@ -1,5 +1,5 @@
 //
-// Copyright 2018, Sander van Harmelen
+// Copyright 2021, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -223,6 +223,25 @@ func (s *PipelineSchedulesService) DeletePipelineSchedule(pid interface{}, sched
 	u := fmt.Sprintf("projects/%s/pipeline_schedules/%d", pathEscape(project), schedule)
 
 	req, err := s.client.NewRequest("DELETE", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.client.Do(req, nil)
+}
+
+// RunPipelineSchedule triggers a new scheduled pipeline to run immediately.
+//
+// Gitlab API docs:
+// https://docs.gitlab.com/ce/api/pipeline_schedules.html#run-a-scheduled-pipeline-immediately
+func (s *PipelineSchedulesService) RunPipelineSchedule(pid interface{}, schedule int, options ...RequestOptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/pipeline_schedules/%d/play", pathEscape(project), schedule)
+
+	req, err := s.client.NewRequest("POST", u, nil, options)
 	if err != nil {
 		return nil, err
 	}

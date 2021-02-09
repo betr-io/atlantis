@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2021, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ type EventsService struct {
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/events.html#get-user-contribution-events
 type ContributionEvent struct {
+	ID          int        `json:"id"`
 	Title       string     `json:"title"`
 	ProjectID   int        `json:"project_id"`
 	ActionName  string     `json:"action_name"`

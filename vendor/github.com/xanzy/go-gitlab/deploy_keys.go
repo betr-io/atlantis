@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2021, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -186,6 +186,40 @@ func (s *DeployKeysService) EnableDeployKey(pid interface{}, deployKey int, opti
 	u := fmt.Sprintf("projects/%s/deploy_keys/%d/enable", pathEscape(project), deployKey)
 
 	req, err := s.client.NewRequest("POST", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	k := new(DeployKey)
+	resp, err := s.client.Do(req, k)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return k, resp, err
+}
+
+// UpdateDeployKeyOptions represents the available UpdateDeployKey() options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/deploy_keys.html#update-deploy-key
+type UpdateDeployKeyOptions struct {
+	Title   *string `url:"title,omitempty" json:"title,omitempty"`
+	CanPush *bool   `url:"can_push,omitempty" json:"can_push,omitempty"`
+}
+
+// UpdateDeployKey updates a deploy key for a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/deploy_keys.html#update-deploy-key
+func (s *DeployKeysService) UpdateDeployKey(pid interface{}, deployKey int, opt *UpdateDeployKeyOptions, options ...RequestOptionFunc) (*DeployKey, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/deploy_keys/%d", pathEscape(project), deployKey)
+
+	req, err := s.client.NewRequest("PUT", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
