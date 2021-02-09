@@ -348,7 +348,7 @@ func (c *DefaultCommandRunner) RunCommentCommand(baseRepo models.Repo, maybeHead
 	c.updateCommitStatus(ctx, cmd.Name, pullStatus)
 
 	if cmd.Name == models.ApplyCommand && c.automergeEnabled(ctx, projectCmds) {
-		c.automerge(ctx, pullStatus)
+		c.automerge(ctx, pullStatus, c.deleteSourceBranchOnMerge(ctx, projectCmds))
 	}
 }
 
@@ -384,7 +384,7 @@ func (c *DefaultCommandRunner) updateCommitStatus(ctx *CommandContext, cmd model
 	}
 }
 
-func (c *DefaultCommandRunner) automerge(ctx *CommandContext, pullStatus models.PullStatus) {
+func (c *DefaultCommandRunner) automerge(ctx *CommandContext, pullStatus models.PullStatus, shouldDeleteSourceBranch bool) {
 	// We only automerge if all projects have been successfully applied.
 	for _, p := range pullStatus.Projects {
 		if p.Status != models.AppliedPlanStatus {
@@ -401,6 +401,9 @@ func (c *DefaultCommandRunner) automerge(ctx *CommandContext, pullStatus models.
 
 	// Make the API call to perform the merge.
 	ctx.Log.Info("automerging pull request")
+	if shouldDeleteSourceBranch {
+		ctx.Pull.DeleteSourceBranchOnMerge = true
+	}
 	err := c.VCSClient.MergePull(ctx.Pull)
 
 	if err != nil {
@@ -604,6 +607,12 @@ func (c *DefaultCommandRunner) automergeEnabled(ctx *CommandContext, projectCmds
 	return c.GlobalAutomerge ||
 		// Otherwise we check if this repo is configured for automerging.
 		(len(projectCmds) > 0 && projectCmds[0].AutomergeEnabled)
+}
+
+// deleteSourceBranchOnMerge returns true if we should delete the source branch on merge in this context.
+func (c *DefaultCommandRunner) deleteSourceBranchOnMerge(ctx *CommandContext, projectCmds []models.ProjectCommandContext) bool {
+	// check if this repo is configured for automerging.
+	return (len(projectCmds) > 0 && projectCmds[0].DeleteSourceBranchOnMerge)
 }
 
 // parallelApplyEnabled returns true if parallel apply is enabled in this context.
