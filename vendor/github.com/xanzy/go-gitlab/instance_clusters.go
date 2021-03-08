@@ -1,5 +1,5 @@
 //
-// Copyright 2020, Serena Fang
+// Copyright 2021, Serena Fang
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package gitlab
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 )
 
@@ -37,6 +38,7 @@ type InstanceCluster struct {
 	ID                 int                 `json:"id"`
 	Name               string              `json:"name"`
 	Domain             string              `json:"domain"`
+	Managed            bool                `json:"managed"`
 	CreatedAt          *time.Time          `json:"created_at"`
 	ProviderType       string              `json:"provider_type"`
 	PlatformType       string              `json:"platform_type"`
@@ -56,9 +58,9 @@ func (v InstanceCluster) String() string {
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/instance_clusters.html#list-instance-clusters
 func (s *InstanceClustersService) ListClusters(options ...RequestOptionFunc) ([]*InstanceCluster, *Response, error) {
-	u := fmt.Sprintf("admin/clusters")
+	u := "admin/clusters"
 
-	req, err := s.client.NewRequest("GET", u, nil, options)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil, options)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -79,7 +81,7 @@ func (s *InstanceClustersService) ListClusters(options ...RequestOptionFunc) ([]
 func (s *InstanceClustersService) GetCluster(cluster int, options ...RequestOptionFunc) (*InstanceCluster, *Response, error) {
 	u := fmt.Sprintf("admin/clusters/%d", cluster)
 
-	req, err := s.client.NewRequest("GET", u, nil, options)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil, options)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -98,9 +100,9 @@ func (s *InstanceClustersService) GetCluster(cluster int, options ...RequestOpti
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/instance_clusters.html#add-existing-instance-cluster
 func (s *InstanceClustersService) AddCluster(opt *AddClusterOptions, options ...RequestOptionFunc) (*InstanceCluster, *Response, error) {
-	u := fmt.Sprintf("admin/clusters/add")
+	u := "admin/clusters/add"
 
-	req, err := s.client.NewRequest("POST", u, opt, options)
+	req, err := s.client.NewRequest(http.MethodPost, u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -121,7 +123,7 @@ func (s *InstanceClustersService) AddCluster(opt *AddClusterOptions, options ...
 func (s *InstanceClustersService) EditCluster(cluster int, opt *EditClusterOptions, options ...RequestOptionFunc) (*InstanceCluster, *Response, error) {
 	u := fmt.Sprintf("admin/clusters/%d", cluster)
 
-	req, err := s.client.NewRequest("PUT", u, opt, options)
+	req, err := s.client.NewRequest(http.MethodPut, u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -142,7 +144,7 @@ func (s *InstanceClustersService) EditCluster(cluster int, opt *EditClusterOptio
 func (s *InstanceClustersService) DeleteCluster(cluster int, options ...RequestOptionFunc) (*Response, error) {
 	u := fmt.Sprintf("admin/clusters/%d", cluster)
 
-	req, err := s.client.NewRequest("DELETE", u, nil, options)
+	req, err := s.client.NewRequest(http.MethodDelete, u, nil, options)
 	if err != nil {
 		return nil, err
 	}
