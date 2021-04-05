@@ -18,7 +18,7 @@ require (
 	github.com/go-ozzo/ozzo-validation v0.0.0-20170913164239-85dcd8368eba
 	github.com/go-playground/locales v0.12.1 // indirect
 	github.com/go-playground/universal-translator v0.16.0 // indirect
-	github.com/go-test/deep v1.0.3
+	github.com/go-test/deep v1.0.4
 	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/google/go-github/v31 v31.0.0
 	github.com/gorilla/mux v1.8.0
@@ -28,6 +28,8 @@ require (
 	github.com/hashicorp/terraform-config-inspect v0.0.0-20200806211835-c481b8bfa41e
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
+	github.com/lusis/go-slackbot v0.0.0-20210303200821-3c34a039d473 // indirect
+	github.com/lusis/slack-test v0.0.0-20190426140909-c40012f20018 // indirect
 	github.com/mcdafydd/go-azuredevops v0.12.0
 	github.com/microcosm-cc/bluemonday v1.0.1
 	github.com/mitchellh/colorstring v0.0.0-20150917214807-8631ce90f286
@@ -46,7 +48,7 @@ require (
 	github.com/spf13/viper v1.7.1
 	github.com/urfave/cli v1.20.0
 	github.com/urfave/negroni v0.3.0
-	github.com/xanzy/go-gitlab v0.34.1
+	github.com/xanzy/go-gitlab v0.48.0
 	github.com/zclconf/go-cty v1.5.1 // indirect
 	go.etcd.io/bbolt v1.3.5
 	golang.org/x/crypto v0.0.0-20200414173820-0848c9571904
